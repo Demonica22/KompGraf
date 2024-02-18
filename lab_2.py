@@ -107,8 +107,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.update_points()
 
     def delete_point(self):
-        self.points.pop(-1)
-        self.update_points()
+        if self.points:
+            self.points.pop(-1)
+            self.update_points()
 
 
 app = QtWidgets.QApplication(sys.argv)
