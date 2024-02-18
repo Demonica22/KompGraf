@@ -82,12 +82,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
             self.precision = self.spinBox_4.value()
 
-            # draw_circle = pyplot.Circle(data['circle_centre'], data['radius'], fill=False, color='red', linewidth=2)
-            # self.canvas.axes.plot(*data["point"], 'bo', ms=5)
-            # self.canvas.axes.add_artist(draw_circle)
-
             for point in self.points:
-                # self.canvas.axes.plot([data['point'][0], point[0]], [data['point'][1], point[1]], 'black', lw=2)
                 self.canvas.axes.plot(point[0], point[1], 'ro', ms=3)
 
             ts = [t / float(self.precision) for t in range(self.precision + 1)]
