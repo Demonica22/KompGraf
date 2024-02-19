@@ -81,16 +81,18 @@ class MainWindow(QtWidgets.QMainWindow):
             self.canvas.axes.cla()
 
             self.precision = self.spinBox_4.value()
+            if len(self.points):
+                for i in range(len(self.points)-1):
+                    self.canvas.axes.plot(self.points[i][0], self.points[i][1], 'ro', ms=3)
+                    self.canvas.axes.plot([self.points[i][0],self.points[i+1][0]], [self.points[i][1], self.points[i+1][1]], 'red', lw=1)
+                self.canvas.axes.plot(self.points[-1][0], self.points[-1][1], 'ro', ms=3)
 
-            for point in self.points:
-                self.canvas.axes.plot(point[0], point[1], 'ro', ms=3)
+                ts = [t / float(self.precision) for t in range(self.precision + 1)]
 
-            ts = [t / float(self.precision) for t in range(self.precision + 1)]
-
-            bezier = make_bezier(self.points)
-            points = bezier(ts)
-            for point in points:
-                self.canvas.axes.plot(point[0], point[1], 'bo', ms=1)
+                bezier = make_bezier(self.points)
+                points = bezier(ts)
+                for point in points:
+                    self.canvas.axes.plot(point[0], point[1], 'bo', ms=1)
             self.canvas.axes.set_ylim(-self.size, self.size)
             self.canvas.axes.set_xlim(-self.size, self.size)
             self.canvas.draw()
