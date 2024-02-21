@@ -74,6 +74,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pushButton.clicked.connect(self.draw)
         self.pushButton_2.clicked.connect(self.add_point)
         self.pushButton_3.clicked.connect(self.delete_point)
+        self.pushButton_5.clicked.connect(self.change_point_coords)
+
+        self.spinBox_6.valueChanged.connect(self.load_point_coords)
+
         self.show()
 
     def draw(self):
@@ -98,7 +102,13 @@ class MainWindow(QtWidgets.QMainWindow):
             self.canvas.draw()
         except Exception as x:
             print(x)
+    def load_point_coords(self, point_index):
+        self.spinBox_2.setValue(self.points[point_index-1][0])
+        self.spinBox_5.setValue(self.points[point_index-1][1])
 
+    def change_point_coords(self):
+        self.points[self.spinBox_6.value()-1] = (self.spinBox_2.value(), self.spinBox_5.value())
+        self.update_points()
     def update_points(self):
         self.label_2.setText("\n".join([f"({point[0]};{point[1]})" for point in self.points]))
 
@@ -107,11 +117,14 @@ class MainWindow(QtWidgets.QMainWindow):
         if (x, y) not in self.points:
             self.points.append((x, y))
         self.update_points()
+        self.spinBox_6.setMaximum = len(self.points)
 
     def delete_point(self):
         if self.points:
             self.points.pop(-1)
             self.update_points()
+        self.spinBox_6.setMaximum = len(self.points)
+
 
 
 app = QtWidgets.QApplication(sys.argv)
