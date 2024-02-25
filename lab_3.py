@@ -44,7 +44,10 @@ class MainWindow(QtWidgets.QMainWindow):
         try:
             self.canvas.axes.cla()
 
+            #Получаем углы поворота, сразу переводя из градусов в радианы
             angle_x, angle_y = self.angle_x.value() * math.pi / 180, self.angle_y.value() * math.pi / 180
+
+            # считываем точки, введенные пользователем
             corner_points = np.array(self.points)
 
             # Матрицы поворота
